@@ -480,6 +480,13 @@
       opacity: 1;
       transform: scaleX(1);
     }
+
+
+    /* remove underline, DO NOT override existing colors */
+    .card,
+    .card * {
+      text-decoration: none !important;
+    }
   </style>
 </head>
 
@@ -518,109 +525,63 @@
     <section id="work">
       <div class="grid">
         <!-- 🔧 Duplicate a .card block for more projects -->
-        <article class="card reveal">
+        <a href="https://example.com/video1" target="_blank" rel="noopener" class="card reveal">
+
           <div class="thumb">Drop a thumbnail: images/project-1.jpg</div>
           <div class="meta">
             <div class="kicker">2025</div>
             <div class="title">Neon City Fly-through</div>
             <p class="desc">Blender + Eevee. Kitbash city, volumetrics, and camera path synced to original beat.</p>
           </div>
-          <div class="actions">
-            <a class="pill" href="https://example.com/video1" target="_blank" rel="noopener">Watch</a>
-            <a class="pill" href="https://example.com/case1" target="_blank" rel="noopener">Case Study</a>
-          </div>
-        </article>
+        </a>
 
-        <article class="card reveal">
+        <a href="https://example.com/video2" target="_blank" rel="noopener" class="card reveal">
           <div class="thumb">Drop a thumbnail: images/project-2.jpg</div>
           <div class="meta">
             <div class="kicker">2025</div>
             <div class="title">XT ✱ Ident</div>
             <p class="desc">After Effects + expressions. Glitch/scanline motif with neon cyan/magenta brand system.</p>
           </div>
-          <div class="actions">
-            <a class="pill" href="https://example.com/video2" target="_blank" rel="noopener">Watch</a>
-            <a class="pill" href="https://example.com/case2" target="_blank" rel="noopener">Case Study</a>
-          </div>
-        </article>
+        </a>
 
-        <article class="card reveal">
+        <a href="https://example.com/video1" target="_blank" rel="noopener" class="card reveal">
           <div class="thumb">Drop a thumbnail: images/project-3.jpg</div>
           <div class="meta">
             <div class="kicker">2025</div>
             <div class="title">Love 4EVA (edit)</div>
             <p class="desc">Original mix; side-chain visuals synced in TouchDesigner prototype.</p>
           </div>
-          <div class="actions">
-            <a class="pill" href="https://example.com/audio" target="_blank" rel="noopener">Listen</a>
-            <a class="pill" href="https://example.com/case3" target="_blank" rel="noopener">Case Study</a>
-          </div>
-        </article>
+        </a>
 
-        <article class="card reveal">
+        <a href="https://example.com/video1" target="_blank" rel="noopener" class="card reveal">
           <div class="thumb">Drop a thumbnail: images/project-4.jpg</div>
           <div class="meta">
             <div class="kicker">2025</div>
             <div class="title">CRSTNA · Festival Pack</div>
             <p class="desc">Poster set + IG reels; holographic chrome treatment and particle passes.</p>
           </div>
-          <div class="actions">
-            <a class="pill" href="https://example.com/pack" target="_blank" rel="noopener">Preview</a>
-            <a class="pill" href="https://example.com/case4" target="_blank" rel="noopener">Case Study</a>
-          </div>
-        </article>
+        </a>
       </div>
     </section>
 
-    <section id="about">
-      <div class="section-title"><span class="bar"></span> About</div>
-      <div class="about">
-        <div class="panel reveal">
-          <h3 style="margin-top:0">Hi, I’m Christina.</h3>
-          <p>I craft music‑driven 3D and motion design. Tools include Blender, After Effects, Cinema 4D, and FL Studio.
-            I love neon palettes, manga‑inspired forms, and glitched UI.</p>
-          <p>Available for freelance and collabs. Based in Long Island/Queens.</p>
-        </div>
-        <div class="panel reveal">
-          <strong>Stack</strong>
-          <div class="stack" style="margin-top:10px">
-            <span class="tagpill">Blender</span><span class="tagpill">Eevee/Cycles</span><span class="tagpill">After
-              Effects</span>
-            <span class="tagpill">Cinema 4D</span><span class="tagpill">Figma</span><span class="tagpill">FL
-              Studio</span>
-          </div>
-        </div>
+    <footer>
+      <div class="container"
+        style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:22px;">
+        <small>© <span id="year"></span> Christina Seo</small>
+        <small>Built with ♥ on GitHub Pages</small>
       </div>
-    </section>
+    </footer>
 
-    <section id="contact">
-      <div class="section-title"><span class="bar"></span> Contact</div>
-      <div class="panel reveal">
-        <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
-        <p>Instagram: <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener">@yourhandle</a></p>
-        <p>Resume (PDF): <a href="files/resume.pdf" target="_blank" rel="noopener">Download</a></p>
-      </div>
-    </section>
-  </main>
+    <script>
+      // Year
+      document.getElementById('year').textContent = new Date().getFullYear();
 
-  <footer>
-    <div class="container"
-      style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:22px;">
-      <small>© <span id="year"></span> Christina Seo</small>
-      <small>Built with ♥ on GitHub Pages</small>
-    </div>
-  </footer>
-
-  <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
-    }, { threshold: .12 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  </script>
+      // Reveal on scroll
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+      }, { threshold: .12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
 </body>
 
 </html>
