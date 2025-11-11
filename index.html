@@ -641,6 +641,31 @@
         transition: none;
       }
     }
+
+    /* Always-readable hero buttons in LIGHT MODE */
+    .light-mode .hero-links .chip {
+      color: #0b0b0b;
+      /* dark text */
+      background: rgba(255, 255, 255, 0.88);
+      /* near-solid white */
+      border-color: rgba(0, 0, 0, 0.18);
+      backdrop-filter: saturate(140%) blur(8px);
+      /* nice glass look */
+      text-shadow: none;
+      /* keep text crisp on bright video */
+      box-shadow: 0 2px 16px rgba(0, 0, 0, .18);
+    }
+
+    /* hover stays readable too */
+    .light-mode .hero-links .chip:hover {
+      box-shadow: 0 6px 24px rgba(0, 0, 0, .22), 0 0 0 1px rgba(0, 0, 0, .22);
+      border-color: rgba(0, 0, 0, .28);
+    }
+
+    /* ensure the chip layer isn’t affected by any blending */
+    .hero-content {
+      isolation: isolate;
+    }
   </style>
 
 
