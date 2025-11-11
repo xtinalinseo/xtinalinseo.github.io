@@ -642,6 +642,17 @@
       border-color: rgba(0, 0, 0, .28);
     }
 
+    /* ✨ Glow chips in LIGHT MODE (same glow behavior as dark mode) */
+    .light-mode .hero-links .chip:hover {
+      border-color: rgba(0, 122, 255, .55) !important;
+      box-shadow:
+        0 0 8px rgba(0, 122, 255, .35),
+        0 0 24px rgba(255, 83, 192, .28),
+        inset 0 0 0 1px rgba(0, 122, 255, .3);
+      transform: translateY(-2px) scale(1.05);
+    }
+
+
     /* ensure the chip layer isn’t affected by any blending */
     .hero-content {
       isolation: isolate;
