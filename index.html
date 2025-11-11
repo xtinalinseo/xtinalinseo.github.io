@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,195 +11,477 @@
   <!-- Fonts (safe to keep or swap) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=B612:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=B612:wght@300;400;600&display=swap"
+    rel="stylesheet">
 
   <style>
-    :root{
+    :root {
       /* 🌈 Customize your brand colors here */
-      --bg:#07071a;             /* page background */
-      --panel:#0e0e24;          /* card/background panels */
-      --text:#e6f1ff;           /* primary text */
-      --muted:#91a4c2;          /* secondary text */
-      --accent:#00f0ff;         /* neon cyan */
-      --accent2:#ff3df2;        /* neon magenta */
-      --glow: 0 0 12px rgba(0,240,255,.55), 0 0 24px rgba(0,240,255,.25);
+      --bg: #093443;
+      /* page background */
+      --panel: #2e3e62;
+      /* card/background panels */
+      --text: #e6f1ff;
+      /* primary text */
+      --muted: #91a4c2;
+      /* secondary text */
+      --accent: #00f0ff;
+      /* neon cyan */
+      --accent2: #ff3df2;
+      /* neon magenta */
+      --glow: 0 0 12px rgba(0, 240, 255, .55), 0 0 24px rgba(0, 240, 255, .25);
       --radius: 18px;
       --max: 1080px;
     }
 
     /* Reset-ish */
-    *,*::before,*::after{ box-sizing:border-box }
-    html,body{ height:100% }
-    body{ margin:0; font-family: 'B612', sans-serif; color:var(--text); background: var(--bg); }
-    a{ color:inherit }
-    img{ max-width:100%; display:block }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: 'B612', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    a {
+      color: inherit
+    }
+
+    img {
+      max-width: 100%;
+      display: block
+    }
 
     /* Background grid + animated gradient haze */
-    body::before{
-      content:"";
-      position:fixed; inset:-40vmax;
-      background: radial-gradient(60vmax 60vmax at 20% 10%, rgba(0,240,255,.18), transparent 60%),
-                  radial-gradient(60vmax 60vmax at 80% 90%, rgba(255,61,242,.18), transparent 60%);
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -40vmax;
+      background: radial-gradient(60vmax 60vmax at 20% 10%, rgba(0, 240, 255, .18), transparent 60%),
+        radial-gradient(60vmax 60vmax at 80% 90%, rgba(255, 61, 242, .18), transparent 60%);
       filter: blur(60px) saturate(130%);
-      z-index:-2; animation: drift 26s linear infinite alternate;
-    }
-    @keyframes drift{ to{ transform: translate3d(2rem,-1rem,0) scale(1.05) rotate(1deg)} }
-
-    .grid-bg{ position:fixed; inset:0; z-index:-1; background:
-      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0/ 40px 40px,
-      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0/ 40px 40px;
-      mask: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.2));
+      z-index: -2;
+      animation: drift 26s linear infinite alternate;
     }
 
-    .container{ max-width:var(--max); margin:0 auto; padding: clamp(16px,2vw,24px); }
+    @keyframes drift {
+      to {
+        transform: translate3d(2rem, -1rem, 0) scale(1.05) rotate(1deg)
+      }
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px) 0 0/ 40px 40px,
+        linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px) 0 0/ 40px 40px;
+      mask: linear-gradient(to bottom, rgba(0, 0, 0, .9), rgba(0, 0, 0, .2));
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(16px, 2vw, 24px);
+    }
 
     /* Nav */
-    header{ position:sticky; top:0; backdrop-filter: blur(10px); background: linear-gradient( to bottom, rgba(7,7,26,.85), rgba(7,7,26,.55)); border-bottom:1px solid rgba(255,255,255,.06); z-index:10; }
-    .nav{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
-    .brand{ display:flex; align-items:center; gap:12px; text-decoration:none }
-    .brand .logo{ width:36px; height:36px; border-radius:12px; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: var(--glow); position:relative; }
-    .brand .logo::after{ content:"✱"; position:absolute; inset:0; display:grid; place-items:center; font-family: Orbitron, sans-serif; font-weight:800; color:#07071a; text-shadow: none; }
-    .brand span{ font-family: 'Audiowide', sans-serif; letter-spacing:.06em; font-weight:400; }
-
-    .links{ display:flex; gap:12px; flex-wrap:wrap }
-    .chip{ text-decoration:none; padding:8px 12px; border:1px solid rgba(255,255,255,.08); border-radius:999px; color:var(--muted); transition:.2s ease; }
-    .chip:hover{ border-color: rgba(255,255,255,.25); color:var(--text) }
-
-    /* Hero */
-    .hero{ padding: clamp(36px, 8vw, 96px) 0 32px; }
-    .tag{ color:var(--accent); text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:600 }
-    h1{ font-family: Orbitron, sans-serif; font-size: clamp(2.2rem, 5vw, 4rem); margin:.3em 0; line-height:1.05; }
-    .glitch{ position:relative; display:inline-block; text-shadow: 0 0 2px rgba(255,255,255,.45), 0 0 24px rgba(0,240,255,.25) }
-    .glitch::before,.glitch::after{ content:attr(data-text); position:absolute; left:0; top:0; clip-path: inset(0 0 0 0); }
-    .glitch::before{ transform: translate(2px, -1px); color: var(--accent); opacity:.8; mix-blend-mode: screen; }
-    .glitch::after{ transform: translate(-2px, 1px); color: var(--accent2); opacity:.8; mix-blend-mode: screen; }
-    .sub{ max-width: 72ch; color: var(--muted); font-size: clamp(1rem, 2vw, 1.125rem) }
-
-    .cta{ margin-top:22px; display:flex; gap:12px; flex-wrap:wrap }
-    .btn{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); transition:.2s ease }
-    .btn:hover{ border-color: rgba(255,255,255,.25) }
-    .btn.primary{ background: linear-gradient(135deg, rgba(0,240,255,.25), rgba(255,61,242,.18)); border-color: rgba(0,240,255,.45); box-shadow: var(--glow) }
-
-    /* Section headings */
-    section{ padding: 36px 0 }
-    .section-title{ display:flex; align-items:center; gap:10px; font-family: Orbitron, sans-serif; font-size: 1.3rem; letter-spacing:.06em }
-    .bar{ width:12px; height:12px; border-radius:3px; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: var(--glow) }
-
-    /* Project grid */
-    .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
-    .card{ grid-column: span 6; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); overflow:hidden; position:relative; transition:.25s ease; }
-    .card:hover{ transform: translateY(-3px); border-color: rgba(255,255,255,.2) }
-    .thumb{ aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(0,240,255,.15), rgba(255,61,242,.15)); display:grid; place-items:center; font-size: .95rem; color: var(--muted); }
-    .meta{ padding: 14px 16px 18px }
-    .kicker{ color: var(--accent); letter-spacing:.12em; text-transform:uppercase; font-size: .72rem; font-weight:700 }
-    .title{ margin:.35em 0 .15em; font-weight:700; font-size:1.1rem }
-    .desc{ color: var(--muted); margin:0 }
-    .actions{ display:flex; gap:10px; padding: 0 16px 16px }
-    .pill{ text-decoration:none; padding:8px 12px; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-size:.9rem }
-    .pill:hover{ border-color: rgba(255,255,255,.28) }
-
-    @media (max-width: 860px){ .card{ grid-column: span 12 } }
-
-    /* About */
-    .about{ display:grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-    .panel{ background: var(--panel); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding: 18px; }
-    .stack{ display:flex; flex-wrap:wrap; gap:8px; }
-    .tagpill{ padding:6px 10px; border:1px dashed rgba(255,255,255,.2); border-radius:999px; color: var(--muted); font-size:.9rem }
-    @media (max-width: 920px){ .about{ grid-template-columns:1fr } }
-
-    /* Footer */
-    footer{ border-top:1px solid rgba(255,255,255,.06); color:var(--muted); }
-
-    /* Reveal on scroll */
-    .reveal{ opacity:0; transform: translateY(10px); }
-    .reveal.visible{ opacity:1; transform:none; transition: .6s ease opacity, .6s ease transform; }
-  
-
-/* === Full-screen HERO VIDEO === */
-.hero.has-video{
-  position:relative;
-  height:100vh;
-  min-height:600px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  padding-top:0 !important;
-  padding-bottom:0;
-  margin-top:-40px; /* lift video under header */
-}
-.hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.4) saturate(120%); z-index:0; }
-.hero-content{ position:relative; z-index:2; text-align:center; padding: clamp(36px, 8vw, 96px) 16px; }
-
-
-    /* === NAV HOVER GLOW + GROW === */
-    .links a{
-      font-family:'B612', sans-serif;
-      color:var(--muted);
-      text-decoration:none;
-      font-size:.95rem;
-      letter-spacing:.06em;
-      position:relative;
-      padding:6px 8px;
-      transition: color .25s ease, text-shadow .25s ease, transform .25s ease, letter-spacing .25s ease;
+    header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(7, 7, 26, .85), rgba(7, 7, 26, .55));
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      z-index: 10;
     }
-    .links a::after{
-      content:"";
-      position:absolute; left:0; right:0; bottom:-4px; height:2px;
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none
+    }
+
+    .brand .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: var(--glow);
-      opacity:0; transform: scaleX(0); transform-origin:left;
-      transition: opacity .25s ease, transform .25s ease;
+      position: relative;
     }
-    .links a:hover{
-      color:var(--text);
-      text-shadow: 0 0 8px var(--accent), 0 0 22px var(--accent2);
-      transform: scale(1.08);
-      letter-spacing:.12em;
+
+    .brand .logo::after {
+      content: "✱";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: Orbitron, sans-serif;
+      font-weight: 800;
+      color: #07071a;
+      text-shadow: none;
     }
-    .links a:hover::after{ opacity:1; transform: scaleX(1); }
+
+    .brand span {
+      font-family: 'Audiowide', sans-serif;
+      letter-spacing: .06em;
+      font-weight: 400;
+    }
+
+    .links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .chip {
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 999px;
+      color: var(--muted);
+      transition: .2s ease;
+    }
+
+    .chip:hover {
+      border-color: rgba(255, 255, 255, .25);
+      color: var(--text)
+    }
+
+    /* Hero */
+    .hero {
+      padding: clamp(36px, 8vw, 96px) 0 32px;
+    }
+
+    .tag {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .78rem;
+      font-weight: 600
+    }
+
+    h1 {
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      margin: .3em 0;
+      line-height: 1.05;
+    }
+
+    .glitch {
+      position: relative;
+      display: inline-block;
+      text-shadow: 0 0 2px rgba(255, 255, 255, .45), 0 0 24px rgba(0, 240, 255, .25)
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      clip-path: inset(0 0 0 0);
+    }
+
+    .glitch::before {
+      transform: translate(2px, -1px);
+      color: var(--accent);
+      opacity: .8;
+      mix-blend-mode: screen;
+    }
+
+    .glitch::after {
+      transform: translate(-2px, 1px);
+      color: var(--accent2);
+      opacity: .8;
+      mix-blend-mode: screen;
+    }
+
+    .sub {
+      max-width: 72ch;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.125rem)
+    }
+
+    .cta {
+      margin-top: 22px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
+      transition: .2s ease
+    }
+
+    .btn:hover {
+      border-color: rgba(255, 255, 255, .25)
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(0, 240, 255, .25), rgba(255, 61, 242, .18));
+      border-color: rgba(0, 240, 255, .45);
+      box-shadow: var(--glow)
+    }
+
+    /* Section headings */
+    section {
+      padding: 36px 0
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: Orbitron, sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: .06em
+    }
+
+    .bar {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: var(--glow)
+    }
+
+    /* Project grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      grid-column: span 6;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      transition: .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, .2)
+    }
+
+    .thumb {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, rgba(0, 240, 255, .15), rgba(255, 61, 242, .15));
+      display: grid;
+      place-items: center;
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    .meta {
+      padding: 14px 16px 18px
+    }
+
+    .kicker {
+      color: var(--accent);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .72rem;
+      font-weight: 700
+    }
+
+    .title {
+      margin: .35em 0 .15em;
+      font-weight: 700;
+      font-size: 1.1rem
+    }
+
+    .desc {
+      color: var(--muted);
+      margin: 0
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      padding: 0 16px 16px
+    }
+
+    .pill {
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 999px;
+      font-size: .9rem
+    }
+
+    .pill:hover {
+      border-color: rgba(255, 255, 255, .28)
+    }
+
+    @media (max-width: 860px) {
+      .card {
+        grid-column: span 12
+      }
+    }
+
+    /* About */
+    .about {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tagpill {
+      padding: 6px 10px;
+      border: 1px dashed rgba(255, 255, 255, .2);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .9rem
+    }
+
+    @media (max-width: 920px) {
+      .about {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      color: var(--muted);
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+      transition: .6s ease opacity, .6s ease transform;
+    }
+
+
+    /* === Full-screen HERO VIDEO === */
+    .hero.has-video {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: 0 !important;
+      padding-bottom: 0;
+      margin-top: -25px;
+      /* lift video under header */
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.4) saturate(120%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: clamp(36px, 8vw, 96px) 16px;
+    }
   </style>
 </head>
+
 <body>
   <div class="grid-bg" aria-hidden="true"></div>
   <header>
     <div class="container nav">
       <a class="brand" href="#top" aria-label="Home">
         <span class="logo" aria-hidden="true"></span>
-        <span>Christina Seo</span>
+        <span>X-TINA</span>
       </a>
       <nav class="links" aria-label="Primary">
-        <a href="#showreel">Showreel</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a class="chip" href="#showreel">Showreel</a>
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
+  <!-- ✅ HERO OUTSIDE THE CONTAINER -->
+  <section class="hero has-video">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="placeholder.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-content">
+      <div class="tag">3D · Motion · Music</div>
+      <h1 class="glitch" data-text="Christina Seo">Christina Seo</h1>
+      <p class="sub">I design outside the lines: stylized 3D, kinetic type, and music-driven visuals.</p>
+    </div>
+  </section>
+
+  <!-- ✅ Now start the container -->
   <main id="top" class="container">
-    <section class="hero has-video">
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-    <source src="placeholder.mp4" type="video/mp4">
-  </video>
-
-  <div class="hero-content">
-    <div class="tag">3D · Motion · Music</div>
-    <h1 class="glitch" data-text="Christina Seo">Christina Seo</h1>
-    <p class="sub">I design outside the lines: stylized 3D, kinetic type, and music-driven visuals.</p>
-
-    
-  </div>
-</section>
 
     <section id="work">
-      
       <div class="grid">
         <!-- 🔧 Duplicate a .card block for more projects -->
         <article class="card reveal">
           <div class="thumb">Drop a thumbnail: images/project-1.jpg</div>
           <div class="meta">
             <div class="kicker">3D Loop</div>
-            <div class="title">Neon City Fly‑through</div>
+            <div class="title">Neon City Fly-through</div>
             <p class="desc">Blender + Eevee. Kitbash city, volumetrics, and camera path synced to original beat.</p>
           </div>
           <div class="actions">
@@ -225,7 +508,7 @@
           <div class="meta">
             <div class="kicker">Music</div>
             <div class="title">Love 4EVA (edit)</div>
-            <p class="desc">Original mix; side‑chain visuals synced in TouchDesigner prototype.</p>
+            <p class="desc">Original mix; side-chain visuals synced in TouchDesigner prototype.</p>
           </div>
           <div class="actions">
             <a class="pill" href="https://example.com/audio" target="_blank" rel="noopener">Listen</a>
@@ -253,14 +536,17 @@
       <div class="about">
         <div class="panel reveal">
           <h3 style="margin-top:0">Hi, I’m Christina.</h3>
-          <p>I craft music‑driven 3D and motion design. Tools include Blender, After Effects, Cinema 4D, and FL Studio. I love neon palettes, manga‑inspired forms, and glitched UI.</p>
+          <p>I craft music‑driven 3D and motion design. Tools include Blender, After Effects, Cinema 4D, and FL Studio.
+            I love neon palettes, manga‑inspired forms, and glitched UI.</p>
           <p>Available for freelance and collabs. Based in Long Island/Queens.</p>
         </div>
         <div class="panel reveal">
           <strong>Stack</strong>
           <div class="stack" style="margin-top:10px">
-            <span class="tagpill">Blender</span><span class="tagpill">Eevee/Cycles</span><span class="tagpill">After Effects</span>
-            <span class="tagpill">Cinema 4D</span><span class="tagpill">Figma</span><span class="tagpill">FL Studio</span>
+            <span class="tagpill">Blender</span><span class="tagpill">Eevee/Cycles</span><span class="tagpill">After
+              Effects</span>
+            <span class="tagpill">Cinema 4D</span><span class="tagpill">Figma</span><span class="tagpill">FL
+              Studio</span>
           </div>
         </div>
       </div>
@@ -277,7 +563,8 @@
   </main>
 
   <footer>
-    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:22px;">
+    <div class="container"
+      style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:22px;">
       <small>© <span id="year"></span> Christina Seo</small>
       <small>Built with ♥ on GitHub Pages</small>
     </div>
@@ -288,11 +575,11 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
-    },{ threshold:.12 });
-    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
 </body>
-</html>
 
+</html>
