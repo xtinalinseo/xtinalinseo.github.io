@@ -120,26 +120,6 @@
       text-decoration: none
     }
 
-    .brand .logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: var(--glow);
-      position: relative;
-    }
-
-    .brand .logo::after {
-      content: "✱";
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      font-family: Orbitron, sans-serif;
-      font-weight: 800;
-      color: #07071a;
-      text-shadow: none;
-    }
 
     .brand span {
       font-family: 'Audiowide', sans-serif;
@@ -666,6 +646,42 @@
     .hero-content {
       isolation: isolate;
     }
+
+    /* brand container (logo + glitch text) */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* raw logo with no glow or box */
+    .brand-icon {
+      width: 36px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      background: none !important;
+      box-shadow: none !important;
+      mix-blend-mode: normal !important;
+    }
+
+    /* glitch text styling STAYS as is */
+    .brand-text {
+      font-family: 'Audiowide', sans-serif;
+      letter-spacing: .06em;
+      position: relative;
+    }
+
+    .brand-icon {
+      transition: transform .18s ease;
+      transform-origin: center;
+    }
+
+    .brand-icon:hover {
+      transform: translateY(-1px) scale(1.04);
+    }
   </style>
 
 
@@ -675,8 +691,8 @@
   <div class="grid-bg" aria-hidden="true"></div>
   <header>
     <div class="container nav">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="logo" aria-hidden="true"></span>
+      <a href="#top" aria-label="Home" class="brand">
+        <img src="xtina-logo-embedded.svg" alt="X-Tina Logo" class="brand-icon">
         <span class="brand-text" data-text="X-TINA">X-TINA</span>
       </a>
 
