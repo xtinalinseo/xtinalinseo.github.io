@@ -17,9 +17,9 @@
   <style>
     :root {
       /* 🌈 Customize your brand colors here */
-      --bg: #093443;
+      --bg: #07071a;
       /* page background */
-      --panel: #2e3e62;
+      --panel: #0e0e24;
       /* card/background panels */
       --text: #e6f1ff;
       /* primary text */
@@ -439,6 +439,47 @@
       text-align: center;
       padding: clamp(36px, 8vw, 96px) 16px;
     }
+
+    /* === NAV HOVER GLOW + GROW === */
+    /* === NAV TEXT HOVER: GLOW + GROW === */
+    .links a {
+      font-family: 'B612', sans-serif;
+      /* normal text */
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .95rem;
+      letter-spacing: .05em;
+      position: relative;
+      padding: 6px 8px;
+      transition: color .25s ease, text-shadow .25s ease, transform .25s ease;
+    }
+
+    .links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -4px;
+      height: 2px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: var(--glow);
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+
+    .links a:hover {
+      color: var(--text);
+      text-shadow: 0 0 8px var(--accent), 0 0 22px var(--accent2);
+      transform: scale(1.08);
+      letter-spacing: .12em;
+    }
+
+    .links a:hover::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
   </style>
 </head>
 
@@ -451,9 +492,9 @@
         <span>X-TINA</span>
       </a>
       <nav class="links" aria-label="Primary">
-        <a class="chip" href="#showreel">Showreel</a>
-        <a class="chip" href="#about">About</a>
-        <a class="chip" href="#contact">Contact</a>
+        <a href="#showreel">Showreel</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
