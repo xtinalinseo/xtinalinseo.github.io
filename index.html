@@ -7,6 +7,15 @@
   <title>Christina Seo · Portfolio</title>
   <meta name="description" content="Cyber‑aesthetic portfolio for 3D/Motion & music.">
   <meta name="color-scheme" content="dark">
+  <meta name="description" content="3D & motion design driven by music — Christina Seo. Blender, AE, C4D, FL Studio.">
+  <meta property="og:title" content="Christina Seo — 3D · Motion · Music">
+  <meta property="og:description" content="Cyber motion & sound. Showreel, projects, and contact.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xtinalinseo.github.io/">
+  <meta property="og:image" content="https://xtinalinseo.github.io/images/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico">
+
 
   <!-- Fonts (safe to keep or swap) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -693,6 +702,23 @@
     .brand-icon:hover {
       transform: translateY(-1px) scale(1.04);
     }
+
+    .brand-icon {
+      filter: brightness(1.35) contrast(1.1);
+    }
+
+    body.light-mode .brand-icon {
+      filter: brightness(1.2) contrast(1.05);
+    }
+
+    .brand-icon {
+      height: 28px;
+      transition: height .22s var(--ease);
+    }
+
+    header.header-compact .brand-icon {
+      height: 22px;
+    }
   </style>
 
 
@@ -723,8 +749,13 @@
 
       <div class="hero-links">
         <a class="chip" href="#showreel">Showreel</a>
-        <a class="chip" href="#about">About</a>
-        <a class="chip" href="#contact">Contact</a>
+        <a class="chip" href="about.html">About</a>
+        <a class="chip"
+          href="mailto:christinacseo@gmail.com
+          ?subject=Project%20Inquiry
+          &body=Hi%20Christina%2C%0A%0AMy%20name%20is%20(your%20name)%2C%20and%20I%E2%80%99m%20reaching%20out%20about%3A%0A">
+          Contact
+        </a>
       </div>
     </div>
   </section>
@@ -843,30 +874,58 @@
       })();
     </script>
     <script>
+      // Theme toggle with persistence across pages
       const toggleBtn = document.getElementById("theme-toggle");
       const body = document.body;
-      const sfx = document.getElementById("theme-sfx");
 
+      // 🔥 Load saved theme on page load
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        body.classList.add("light-mode");
+        toggleBtn.textContent = "🌙";
+      }
+
+      // Toggle + save preference
       toggleBtn?.addEventListener("click", () => {
-        // 1) fade to black (lights out)
         body.classList.add("lights-out");
 
-        // 1a) play click SFX (user-initiated, so allowed)
-        try { sfx && (sfx.currentTime = 0, sfx.volume = 0.45, sfx.play()); } catch { }
-
-        // 2) mid-fade: flip theme while screen is dark
         setTimeout(() => {
           const toLight = !body.classList.contains("light-mode");
           body.classList.toggle("light-mode", toLight);
           toggleBtn.textContent = toLight ? "🌙" : "☀️";
-        }, 200); // flip ~halfway through the fade
 
-        // 3) fade back up (lights on)
-        setTimeout(() => {
-          body.classList.remove("lights-out");
-        }, 420); // match CSS transition time
+          // ✅ Persist theme across pages
+          localStorage.setItem("theme", toLight ? "light" : "dark");
+        }, 200);
+
+        setTimeout(() => body.classList.remove("lights-out"), 420);
       });
+
     </script>
+    <script>
+      (() => {
+        const h = document.querySelector('header'), s = document.querySelector('.hero');
+        if (!h || !s) return;
+        new IntersectionObserver(([e]) => h.classList.toggle('header-compact', !e.isIntersecting), { threshold: 0.01 }).observe(s);
+      })();
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href]');
+        if (!a) return;
+
+        const href = a.getAttribute('href');
+
+        // Only intercept on-page hash links like #showreel
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // For anything else (about.html), do NOT preventDefault
+      });
+
+    </script>
+
+
 
 
 </body>

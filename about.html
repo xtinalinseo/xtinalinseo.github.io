@@ -5,21 +5,578 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About · Christina Seo</title>
-  <link rel="stylesheet" href="styles.css" /> <!-- use your existing stylesheet -->
+  <meta name="description" content="About Christina Seo — 3D/Motion & music.">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=B612:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #07071a;
+      --panel: #0e0e24;
+      --text: #e6f1ff;
+      --muted: #91a4c2;
+      --accent: #00f0ff;
+      --accent2: #ff3df2;
+      --radius: 18px;
+      --max: 1080px;
+      --glow: 0 0 12px rgba(0, 240, 255, .55), 0 0 24px rgba(0, 240, 255, .25);
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --t: 380ms;
+    }
+
+    /* reset-ish */
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: 'B612', sans-serif;
+      color: var(--text);
+      background: var(--bg)
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    img {
+      max-width: 100%;
+      display: block
+    }
+
+    /* ambient haze + grid (same vibe as index) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -40vmax;
+      z-index: -2;
+      background:
+        radial-gradient(60vmax 60vmax at 20% 10%, rgba(0, 240, 255, .18), transparent 60%),
+        radial-gradient(60vmax 60vmax at 80% 90%, rgba(255, 61, 242, .18), transparent 60%);
+      filter: blur(60px) saturate(130%);
+      animation: drift 26s linear infinite alternate;
+    }
+
+    @keyframes drift {
+      to {
+        transform: translate3d(2rem, -1rem, 0) scale(1.05) rotate(1deg)
+      }
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px) 0 0/40px 40px,
+        linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px) 0 0/40px 40px;
+      mask: linear-gradient(to bottom, rgba(0, 0, 0, .9), rgba(0, 0, 0, .2));
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(16px, 2vw, 24px)
+    }
+
+    /* header (identical behavior/visuals) */
+    header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(7, 7, 26, .85), rgba(7, 7, 26, .55));
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      z-index: 10
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer
+    }
+
+    .brand-icon {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      background: none;
+      box-shadow: none;
+      filter: brightness(1.35) contrast(1.1);
+      transition: transform .18s ease
+    }
+
+    .brand-icon:hover {
+      transform: translateY(-1px) scale(1.04)
+    }
+
+    .brand-text {
+      font-family: 'Audiowide', sans-serif;
+      letter-spacing: .06em;
+      position: relative;
+      text-shadow: 0 0 6px rgba(0, 240, 255, .25)
+    }
+
+    .links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .links a {
+      color: var(--muted);
+      font-size: .95rem;
+      letter-spacing: .05em;
+      position: relative;
+      padding: 6px 8px;
+      transition: color .25s ease, text-shadow .25s ease, transform .25s ease
+    }
+
+    .links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -4px;
+      height: 2px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: var(--glow);
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: opacity .25s, transform .25s
+    }
+
+    .links a:hover {
+      color: var(--text);
+      text-shadow: 0 0 8px var(--accent), 0 0 22px var(--accent2);
+      transform: scale(1.08);
+      letter-spacing: .12em
+    }
+
+    .links a:hover::after {
+      opacity: 1;
+      transform: scaleX(1)
+    }
+
+    #theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: transform .3s ease
+    }
+
+    #theme-toggle:hover {
+      transform: scale(1.3)
+    }
+
+    /* light theme */
+    .light-mode {
+      --bg: #fafafa;
+      --panel: #ffffff;
+      --text: #0b0b0b;
+      --muted: #444;
+      --accent: #007aff;
+      --accent2: #ff53c0
+    }
+
+    .light-mode header {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, .85), rgba(255, 255, 255, .60));
+      border-bottom: 1px solid rgba(0, 0, 0, .08)
+    }
+
+    body,
+    header,
+    .panel,
+    .chip,
+    .card {
+      transition: color var(--t) var(--ease), background-color var(--t) var(--ease),
+        border-color var(--t) var(--ease), box-shadow var(--t) var(--ease), filter var(--t) var(--ease)
+    }
+
+    /* lights-out overlay for theme flip */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: #000;
+      opacity: 0;
+      z-index: 9999;
+      transition: opacity 420ms var(--ease)
+    }
+
+    body.lights-out::after {
+      opacity: 1
+    }
+
+    .light-mode .brand-icon {
+      filter: brightness(1.2) contrast(1.05)
+    }
+
+    /* page layout */
+    main {
+      padding: clamp(36px, 6vw, 72px) 0
+    }
+
+    /* ✨ ABOUT CARD — animated neon border + soft glow */
+    .about-card {
+      position: relative;
+      border-radius: calc(var(--radius) + 6px);
+      --ring-size: 2px;
+    }
+
+    .about-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: var(--ring-size);
+      background:
+        conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent), var(--accent2));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: spin 10s linear infinite;
+      filter: saturate(140%);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .about-card .content {
+      position: relative;
+      border-radius: calc(var(--radius) + 2px);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02));
+      border: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 18px 60px rgba(0, 240, 255, .12);
+      padding: clamp(20px, 4vw, 40px);
+      overflow: hidden;
+    }
+
+    /* floating particles */
+    .about-card .content::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(14px 14px at 20% 30%, rgba(0, 240, 255, .25), transparent 60%),
+        radial-gradient(10px 10px at 80% 70%, rgba(255, 61, 242, .22), transparent 60%),
+        radial-gradient(8px 8px at 60% 20%, rgba(0, 240, 255, .18), transparent 60%);
+      filter: blur(6px);
+      animation: float 12s ease-in-out infinite alternate;
+      pointer-events: none
+    }
+
+    @keyframes float {
+      to {
+        transform: translate3d(10px, -8px, 0) scale(1.05)
+      }
+    }
+
+    /* type scale + accents */
+    .kicker {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-weight: 700;
+      font-size: .78rem;
+      margin-bottom: .5rem
+    }
+
+    .title {
+      font-family: Orbitron, system-ui, sans-serif;
+      font-size: clamp(2rem, 4.6vw, 3.2rem);
+      line-height: 1.05;
+      margin: .1em 0 .4em;
+      position: relative
+    }
+
+    .title .glow {
+      text-shadow: 0 0 10px rgba(0, 240, 255, .55), 0 0 24px rgba(255, 61, 242, .35)
+    }
+
+    .lede {
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      color: var(--muted);
+      max-width: 70ch;
+      line-height: 1.6
+    }
+
+    .callouts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0 8px
+    }
+
+    .tagpill {
+      padding: 7px 12px;
+      border: 1px dashed rgba(255, 255, 255, .22);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .9rem
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
+      transition: .25s var(--ease)
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, .28);
+      box-shadow: 0 0 0 1px rgba(0, 240, 255, .35), 0 18px 50px rgba(0, 240, 255, .22)
+    }
+
+    /* Showreel button — same style as others, just glows on hover */
+    .btn.primary {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+      /* same as normal .btn */
+      border-color: rgba(255, 255, 255, .14);
+      box-shadow: none;
+    }
+
+    /* glow only on hover */
+    .btn.primary:hover {
+      border-color: rgba(0, 240, 255, .45);
+      box-shadow: var(--glow);
+    }
+
+
+    .light-mode .btn:hover {
+      box-shadow: 0 0 0 1px rgba(0, 122, 255, .30), 0 18px 50px rgba(0, 122, 255, .18)
+    }
+
+    /* entrance reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px)
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+      transition: .6s ease opacity, .6s ease transform
+    }
+
+    /* active link style (optional) */
+    .links a.active {
+      color: var(--text)
+    }
+
+    .links a.active::after {
+      opacity: 1;
+      transform: scaleX(1)
+    }
+
+    /* compact header on scroll (same class used on index) */
+    header.header-compact .brand-icon {
+      height: 22px
+    }
+
+    /* Kill the animated border */
+    .about-card::before {
+      content: none !important;
+    }
+
+    /* (optional) also remove the floating particles */
+    .about-card .content::after {
+      content: none !important;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <!-- Header (same as index) -->
   <header>
-    <!-- copy your header HTML from index.html -->
+    <div class="container nav">
+      <a href="index.html#top" aria-label="Home" class="brand">
+        <img src="xtina-logo-embedded.svg" alt="X-Tina Logo" class="brand-icon">
+        <span class="brand-text" data-text="X-TINA">X-TINA</span>
+      </a>
+
+      <button id="theme-toggle" aria-label="toggle theme">☀️</button>
+    </div>
   </header>
 
-  <section class="about-container">
-    <h1>About Me</h1>
-    <p>Write your bio here. This can be short at first — we can style/design it later.</p>
-  </section>
+  <!-- sentinel to allow header to compact after slight scroll -->
+  <div class="sentinel" style="height:1px"></div>
 
-  <!-- optional footer -->
+  <main class="container">
+    <section class="reveal">
+      <div class="about-card">
+        <div class="content">
+          <div class="kicker"></div>
+          <h1 class="title"><span class="glow">Christina Seo</span></h1>
 
+          <p class="lede">
+            <strong>Hi, I'm Christina (X-TINA).</strong> Currently I'm getting my undergraduate degree in Design at
+            Queens College.
+            I do graphic design, 2D/3D motion design, 3D art, and animation. I hope to create <strong>music-driven
+              visuals</strong>.
+            My background in Adobe Photoshop, Adobe Illustrator, Figma, Blender, After Effects, and FL Studio allows me
+            to create worlds
+            that love to move.
+            I'm currently based in New York.
+            <strong> <em>Let's connect!</em> </strong>
+            <strong><u>christinacseo@gmail.com</u></strong>
+          </p>
+
+
+          <div class="callouts">
+            <span class="tagpill">2D/3D Motion Design</span>
+            <span class="tagpill">Blender · AE · C4D · FL</span>
+          </div>
+
+          </p>
+
+          <!-- Bottom nav buttons INSIDE the card -->
+          <div class="actions bottom-nav">
+            <a class="btn" href="index.html#showreel">Showreel</a>
+            <a class="btn" href="index.html#top">Home</a>
+            <a class="btn"
+              href="mailto:christinacseo@gmail.com
+          ?subject=Project%20Inquiry
+          &body=Hi%20Christina%2C%0A%0AMy%20name%20is%20(your%20name)%2C%20and%20I%E2%80%99m%20reaching%20out%20about%3A%0A">
+              Contact
+            </a>
+
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:42px;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)">
+      <div class="container"
+        style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0 22px">
+        <small>© <span id="year"></span> Christina Seo</small>
+        <small>Built with ♥ on GitHub Pages</small>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Scripts (same interactions as index) -->
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Brand scramble (same vibe)
+    (function () {
+      const el = document.querySelector('.brand-text'); if (!el) return;
+      const finalText = el.getAttribute('data-text') || el.textContent.trim();
+      const CHARS = '█▒░<>/\\|•°+=-_*#@%$?ACEHIKNRTX'; const DURATION = 900; const FPS = 60;
+      function scrambleOnce() {
+        const start = performance.now(), len = finalText.length;
+        function frame(now) {
+          const t = Math.min(1, (now - start) / DURATION), reveal = Math.floor(len * t); let out = '';
+          for (let i = 0; i < len; i++) { out += (i < reveal) ? finalText[i] : CHARS[Math.floor(Math.random() * CHARS.length)] }
+          el.style.textShadow = t < 1 ? '0 0 10px rgba(0,240,255,.6), 0 0 18px rgba(255,61,242,.35)' : '0 0 6px rgba(0,240,255,.25)';
+          el.textContent = out; t < 1 ? setTimeout(() => requestAnimationFrame(frame), 1000 / FPS) : (el.textContent = finalText);
+        }
+        requestAnimationFrame(frame);
+      }
+      scrambleOnce(); el.addEventListener('mouseenter', scrambleOnce);
+    })();
+
+    // Theme toggle (lights-out flip)
+    // Theme toggle with persistence across pages
+    const toggleBtn = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    // 🔥 Load saved theme on page load
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      body.classList.add("light-mode");
+      toggleBtn.textContent = "🌙";
+    }
+
+    // Toggle + save preference
+    toggleBtn?.addEventListener("click", () => {
+      body.classList.add("lights-out");
+
+      setTimeout(() => {
+        const toLight = !body.classList.contains("light-mode");
+        body.classList.toggle("light-mode", toLight);
+        toggleBtn.textContent = toLight ? "🌙" : "☀️";
+
+        // ✅ Persist theme across pages
+        localStorage.setItem("theme", toLight ? "light" : "dark");
+      }, 200);
+
+      setTimeout(() => body.classList.remove("lights-out"), 420);
+    });
+
+
+    // Compact header after small scroll (same class name as index)
+    (() => {
+      const h = document.querySelector('header'), s = document.querySelector('.sentinel');
+      if (!h || !s) return;
+      new IntersectionObserver(([e]) => h.classList.toggle('header-compact', !e.isIntersecting), { threshold: 0.01 }).observe(s);
+    })();
+
+    // Only intercept on-page hash links
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]'); if (!a) return;
+      const href = a.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        target && target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  </script>
 </body>
 
 </html>
