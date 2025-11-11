@@ -487,7 +487,163 @@
     .card * {
       text-decoration: none !important;
     }
+
+    /* Scramble logo look */
+    .brand .brand-text {
+      font-family: 'Audiowide', sans-serif;
+      letter-spacing: .06em;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+      /* optional subtle glow */
+      text-shadow: 0 0 6px rgba(0, 240, 255, .25);
+    }
+
+    /* theme toggle button */
+    #theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    #theme-toggle:hover {
+      transform: scale(1.3);
+    }
+
+    /* 🌞 LIGHT THEME VARIABLES */
+    .light-mode {
+      --bg: #fafafa;
+      --panel: #ffffff;
+      --text: #0b0b0b;
+      --muted: #444;
+      --accent: #007aff;
+      /* iOS blue */
+      --accent2: #ff53c0;
+      /* neon magenta */
+    }
+
+    .hero-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-links .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+      border: 1px solid rgba(255, 255, 255, .14);
+      transition: transform .2s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+    }
+
+    .hero-links .chip:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 0 1px rgba(0, 240, 255, .28), 0 10px 28px rgba(0, 240, 255, .22);
+      border-color: rgba(0, 240, 255, .45);
+    }
+
+    /* light mode button surface */
+    .light-mode .hero-links .chip {
+      background: linear-gradient(180deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .02));
+      border-color: rgba(0, 0, 0, .12);
+    }
+
+    .light-mode .hero-links .chip:hover {
+      box-shadow: 0 0 0 1px rgba(0, 122, 255, .26), 0 10px 28px rgba(0, 122, 255, .18);
+      border-color: rgba(0, 122, 255, .45);
+    }
+
+    :root {
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --t: 380ms;
+    }
+
+    /* subtle cross-fade on common surfaces */
+    body,
+    header,
+    .panel,
+    .chip,
+    .card {
+      transition:
+        color var(--t) var(--ease),
+        background-color var(--t) var(--ease),
+        border-color var(--t) var(--ease),
+        box-shadow var(--t) var(--ease),
+        filter var(--t) var(--ease);
+    }
+
+    /* lights-out overlay */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: #000;
+      /* solid black fade */
+      opacity: 0;
+      z-index: 9999;
+      transition: opacity 420ms var(--ease);
+    }
+
+    body.lights-out::after {
+      opacity: 1;
+    }
+
+
+    /* header surface in light mode */
+    .light-mode header {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, .85), rgba(255, 255, 255, .60));
+      border-bottom: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    /* logo chip stays punchy on light */
+    .light-mode .brand .logo {
+      box-shadow: 0 0 12px rgba(0, 122, 255, .35), 0 0 24px rgba(255, 83, 192, .18);
+    }
+
+    .card {
+      transition: transform .25s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease), filter .3s var(--ease);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 0 1px rgba(0, 240, 255, .35), 0 18px 50px rgba(0, 240, 255, .22);
+      border-color: rgba(0, 240, 255, .45);
+    }
+
+    /* softer glow in light mode */
+    .light-mode .card:hover {
+      box-shadow: 0 0 0 1px rgba(0, 122, 255, .30), 0 18px 50px rgba(0, 122, 255, .18);
+      border-color: rgba(0, 122, 255, .45);
+    }
+
+    .light-mode .panel {
+      background: var(--panel);
+      border-color: rgba(0, 0, 0, .08);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::after {
+        transition: none;
+      }
+    }
   </style>
+
+
 </head>
 
 <body>
@@ -496,13 +652,11 @@
     <div class="container nav">
       <a class="brand" href="#top" aria-label="Home">
         <span class="logo" aria-hidden="true"></span>
-        <span>X-TINA</span>
+        <span class="brand-text" data-text="X-TINA">X-TINA</span>
       </a>
-      <nav class="links" aria-label="Primary">
-        <a href="#showreel">Showreel</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+
+      <button id="theme-toggle" aria-label="toggle theme">☀️</button>
+
     </div>
   </header>
 
@@ -513,9 +667,13 @@
     </video>
 
     <div class="hero-content">
-      <div class="tag">3D · Motion · Music</div>
       <h1 class="glitch" data-text="Christina Seo">Christina Seo</h1>
-      <p class="sub">I design outside the lines: stylized 3D, kinetic type, and music-driven visuals.</p>
+
+      <div class="hero-links">
+        <a class="chip" href="#showreel">Showreel</a>
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#contact">Contact</a>
+      </div>
     </div>
   </section>
 
@@ -582,6 +740,83 @@
       }, { threshold: .12 });
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     </script>
+    <script>
+      (function () {
+        const el = document.querySelector('.brand-text');
+        if (!el) return;
+
+        const finalText = el.getAttribute('data-text') || el.textContent.trim();
+        const CHARS = '█▒░<>/\\|•°+=-_*#@%$?ACEHIKNRTX';
+        const DURATION = 900; // ms
+        const FPS = 60;
+
+        function scrambleOnce() {
+          const start = performance.now();
+          const len = finalText.length;
+
+          function frame(now) {
+            const t = Math.min(1, (now - start) / DURATION);
+            const reveal = Math.floor(len * t);           // how many real letters to show
+            let out = '';
+
+            for (let i = 0; i < len; i++) {
+              if (i < reveal) {
+                out += finalText[i];
+              } else {
+                out += CHARS[Math.floor(Math.random() * CHARS.length)];
+              }
+            }
+
+            // cyan/magenta flicker while scrambling
+            el.style.textShadow = t < 1
+              ? '0 0 10px rgba(0,240,255,.6), 0 0 18px rgba(255,61,242,.35)'
+              : '0 0 6px rgba(0,240,255,.25)';
+
+            el.textContent = out;
+
+            if (t < 1) {
+              setTimeout(() => requestAnimationFrame(frame), 1000 / FPS);
+            } else {
+              el.textContent = finalText; // ensure exact text at end
+            }
+          }
+          requestAnimationFrame(frame);
+        }
+
+        // Run once on load
+        scrambleOnce();
+
+        // (Optional) replay on hover
+        el.addEventListener('mouseenter', scrambleOnce);
+      })();
+    </script>
+    <script>
+      const toggleBtn = document.getElementById("theme-toggle");
+      const body = document.body;
+      const sfx = document.getElementById("theme-sfx");
+
+      toggleBtn?.addEventListener("click", () => {
+        // 1) fade to black (lights out)
+        body.classList.add("lights-out");
+
+        // 1a) play click SFX (user-initiated, so allowed)
+        try { sfx && (sfx.currentTime = 0, sfx.volume = 0.45, sfx.play()); } catch { }
+
+        // 2) mid-fade: flip theme while screen is dark
+        setTimeout(() => {
+          const toLight = !body.classList.contains("light-mode");
+          body.classList.toggle("light-mode", toLight);
+          toggleBtn.textContent = toLight ? "🌙" : "☀️";
+        }, 200); // flip ~halfway through the fade
+
+        // 3) fade back up (lights on)
+        setTimeout(() => {
+          body.classList.remove("lights-out");
+        }, 420); // match CSS transition time
+      });
+    </script>
+
+
 </body>
 
 </html>
