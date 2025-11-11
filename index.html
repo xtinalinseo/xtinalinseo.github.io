@@ -11,8 +11,7 @@
   <!-- Fonts (safe to keep or swap) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=B612:wght@300;400;600&display=swap"
     rel="stylesheet">
 
   <style>
@@ -49,7 +48,7 @@
 
     body {
       margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: 'B612', sans-serif;
       color: var(--text);
       background: var(--bg);
     }
@@ -143,9 +142,9 @@
     }
 
     .brand span {
-      font-family: Orbitron, sans-serif;
+      font-family: 'Audiowide', sans-serif;
       letter-spacing: .06em;
-      font-weight: 800
+      font-weight: 400;
     }
 
     .links {
@@ -415,7 +414,10 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      padding: 0;
+      padding-top: 0 !important;
+      padding-bottom: 0;
+      margin-top: -40px;
+      /* lift video under header */
     }
 
     .hero-video {
@@ -434,27 +436,6 @@
       text-align: center;
       padding: clamp(36px, 8vw, 96px) 16px;
     }
-
-    /* Make the video hero span edge-to-edge even inside .container */
-    .hero.has-video {
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
-      padding: 0;
-      /* ensure no extra top/bottom padding */
-    }
-
-    /* Ensure the video sits above any background layers */
-    .hero-video {
-      z-index: 1;
-      /* bump above background grid/haze */
-    }
-
-    /* Keep text above the video */
-    .hero-content {
-      z-index: 2;
-      position: relative;
-    }
   </style>
 </head>
 
@@ -464,7 +445,7 @@
     <div class="container nav">
       <a class="brand" href="#top" aria-label="Home">
         <span class="logo" aria-hidden="true"></span>
-        <span>Christina Seo</span>
+        <span>X-TINA</span>
       </a>
       <nav class="links" aria-label="Primary">
         <a class="chip" href="#work">Work</a>
@@ -482,7 +463,7 @@
 
       <div class="hero-content">
         <div class="tag">3D · Motion · Music</div>
-        <h1 class="glitch" data-text="Cyber Motion & Sound">Cyber Motion & Sound</h1>
+        <h1 class="glitch" data-text="Christina Seo">Christina Seo</h1>
         <p class="sub">I design outside the lines: stylized 3D, kinetic type, and music-driven visuals.</p>
 
 
@@ -595,22 +576,6 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
     }, { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-
-  </script>
-  <script>
-    window.addEventListener('load', () => {
-      const v = document.querySelector('.hero-video');
-      if (!v) return;
-      v.muted = true;            // required for autoplay
-      v.playsInline = true;      // iOS
-      const kick = () => v.play().catch(() => { });
-      kick();
-      // As a fallback, start on first user interaction
-      ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(ev =>
-        window.addEventListener(ev, () => { kick(); }, { once: true, passive: true })
-      );
-    });
   </script>
 </body>
 
