@@ -5,7 +5,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cooledtured · Case Study · Christina Seo</title>
-  <meta name="description" content="Cooledtured website redesign — UX/UI internship case study.">
+  <link rel="icon" type="image/svg+xml" href="xtina-logo-embedded.svg">
+  <link rel="icon" type="image/svg+xml" href="xtina-logo-embedded.svg">
+  <link rel="alternate icon" type="image/png" href="favicon-32x32.png">
+
+  <meta name="description" content="Cooledtured website redesign — mobile-first UX/UI internship case study.">
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="/favicon.ico">
 
@@ -783,6 +787,18 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .theme-icon {
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.6),
+        0 0 18px rgba(255, 61, 242, 0.3);
+      transition: text-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .theme-icon:hover {
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.9),
+        0 0 20px rgba(255, 61, 242, 0.5);
+      transform: scale(1.2);
+    }
   </style>
 </head>
 
@@ -796,7 +812,7 @@
         <img src="xtina-logo-embedded.svg" alt="X-Tina Logo" class="brand-icon">
         <span class="brand-text" data-text="X-TINA">X-TINA</span>
       </a>
-      <button id="theme-toggle" aria-label="toggle theme">☀️</button>
+      <button id="theme-toggle" class="theme-icon" aria-label="toggle theme">☀️</button>
     </div>
   </header>
 
@@ -848,9 +864,9 @@
         <div>
           <h2>Overview</h2>
           <p class="lede"><!-- EDIT -->
-            I redesigned key flows to improve product discovery and checkout clarity: Fandom Collections, Brands, Blog posts,
-          
-            Category filtering, and cart drawer. The goal was a consistent card system, clearer hierarchy, and
+            I redesigned key mobile flows to improve product discovery and checkout clarity: Fandom Collections, Brand
+            hub,
+            Category filtering, cart drawer, and sign-up. The goal was a consistent card system, clearer hierarchy, and
             smoother conversion.
           </p>
         </div>
@@ -929,7 +945,7 @@
       <h3>High-fi & Prototypes</h3>
       <p class="bullets"><!-- EDIT -->
         <strong>Designed</strong> high-fidelity UI components and <strong>prototyped</strong> critical scroll and filter
-        interactions to <strong>optimize</strong> for readability, effectiveness, and design cohesiveness.
+        interactions to<strong>optimize</strong> for readability, effectiveness, and design cohesiveness.
       </p>
     </div>
     </div>
