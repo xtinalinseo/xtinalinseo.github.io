@@ -313,6 +313,97 @@
       height: 22px
     }
 
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 3vw, 48px);
+      align-items: center;
+      justify-content: center;
+      margin-top: 32px;
+    }
+
+    .process-image {
+      width: 100%;
+      max-width: 1200px;
+      display: block;
+      margin: 0 auto 48px;
+      border-radius: 20px;
+      box-shadow: 0 12px 60px rgba(0, 240, 255, 0.25);
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 3vw, 48px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .compare-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .scroll-video {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0, 240, 255, 0.2);
+    }
+
+    .mockup-img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(255, 61, 242, 0.2);
+    }
+
+    @media (max-width: 780px) {
+      .compare-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    .compare-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scroll-video {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0, 240, 255, 0.2);
+    }
+
+    .mockup-img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(255, 61, 242, 0.2);
+    }
+
+    .caption {
+      font-size: 1rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    /* Make it responsive */
+    @media (max-width: 780px) {
+      .compare-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
     .process-hero {
       display: flex;
       flex-direction: column;
@@ -570,6 +661,128 @@
         width: min(380px, 80vw);
       }
     }
+
+    .side-by-side {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      /* space between the two */
+      flex-wrap: wrap;
+      /* stack on small screens */
+      margin-top: 24px;
+    }
+
+    .side-by-side img {
+      border-radius: 18px;
+      box-shadow: 0 8px 40px rgba(0, 240, 255, 0.2);
+      height: auto;
+    }
+
+    /* row with phone + images */
+    .process-row {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+      /* stacks on small screens */
+      margin-top: 16px;
+    }
+
+    /* right column that holds your two images */
+    .process-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 720px;
+    }
+
+    /* sizes for the shots */
+    .shot {
+      display: block;
+      height: auto;
+      border-radius: 18px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .25);
+    }
+
+    .shot-wide {
+      width: min(680px, 46vw);
+    }
+
+    .shot-small {
+      width: min(320px, 30vw);
+    }
+
+    /* make sure phone isn’t huge (uses your existing phone-frame styles) */
+    .phone-frame {
+      width: min(380px, 32vw);
+    }
+
+    /* mobile */
+    @media (max-width: 900px) {
+      .process-row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .process-col {
+        display: flex;
+        flex-direction: row;
+        /* side-by-side */
+        flex-wrap: wrap;
+        gap: 16px;
+        max-width: 720px;
+      }
+
+    }
+
+    .shot-wide,
+    .shot-small {
+      width: min(680px, 92vw);
+    }
+
+    .phone-frame {
+      width: min(380px, 88vw);
+    }
+
+    /* 3-up grid; collapses responsively */
+    .process-row-sbs {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(240px, 1fr));
+      gap: 28px;
+      align-items: start;
+      justify-items: center;
+      margin-top: 12px;
+    }
+
+    /* make sure previous inline sizes don’t win */
+    .process-row-sbs .process-image,
+    .process-row-sbs .shot {
+      width: 100% !important;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .25);
+    }
+
+    /* phone width inside grid */
+    .process-row-sbs .phone-frame {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    /* responsive: stack to 2 cols, then 1 */
+    @media (max-width: 1100px) {
+      .process-row-sbs {
+        grid-template-columns: repeat(2, minmax(240px, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .process-row-sbs {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -609,7 +822,7 @@
           <div class="kicker">Case Study</div>
           <h1 style="margin:.1em 0 .4em">Cooledtured Website Redesign</h1>
           <p class="lede">
-            UX/UI internship — mobile-first redesign across Fandom Collections, Brands, Filters, and Checkout.
+            UX/UI internship — a redesign across Fandom Collections, Blog, and Checkout.
           </p>
 
           <div style="margin-top:12px">
@@ -678,34 +891,48 @@
     <!-- PROCESS -->
     <section id="process" class="section reveal">
       <h2>Process</h2>
-      <!-- ✅ HI-FI SCROLLING MOCKUP VIDEO -->
-      <!-- PHONE DEMO: auto-scroll + drag to scroll like a real phone -->
-      <div class="process-hero">
+
+      <div class="process-row-sbs">
+        <!-- 1) Phone (auto-scroll/drag content is inside) -->
         <div class="phone-frame">
           <div class="phone-screen" id="processScreen">
-            <!-- Use your tall hi-fi image -->
             <img src="hi.webp" alt="Cooledtured hi-fi mockup long scroll" />
           </div>
-          <!-- decorative notch -->
           <div class="phone-notch" aria-hidden="true"></div>
         </div>
 
+        <!-- 2) Process image -->
+        <img src="old_cart.png" alt="Cooledtured Blog Redesign Process Overview" class="process-image shot" />
 
-        <figcaption class="process-caption">
-          Audit &amp; Wireframes: I mapped current flows, noted UI inconsistencies, and built low-fi wireframes to
-          align on hierarchy. Designed with Figma.
-        </figcaption>
+        <!-- 3) Cart image -->
+        <img src="cart.png" alt="Cooledtured Checkout" class="process-image shot" />
       </div>
+    </section>
 
 
-      <div>
-        <h3>High-fi & Prototypes</h3>
-        <p class="bullets"><!-- EDIT -->
-          I produced high-fi components and prototyped scroll + filter interactions to validate affordances and
-          readability.
-        </p>
-      </div>
-      </div>
+    </div>
+    </section>
+
+
+
+    <figcaption class="process-caption">
+      Redesigned the Cooledtured checkout and cart flow to create a cleaner, more cohesive experience across desktop and
+      mobile. The update focuses on improving hierarchy, simplifying the layout, and aligning with the brand’s visual
+      identity through consistent color, typography, and spacing. The new interface highlights key actions like Checkout
+      and Continue Shopping, improving usability while maintaining the fun, polished look of the Cooledtured brand. Blog
+      updated as well.
+    </figcaption>
+    </div>
+
+
+    <div>
+      <h3>High-fi & Prototypes</h3>
+      <p class="bullets"><!-- EDIT -->
+        <strong>Designed</strong> high-fidelity UI components and <strong>prototyped</strong> critical scroll and filter
+        interactions to<strong>optimize</strong> for readability, effectiveness, and design cohesiveness.
+      </p>
+    </div>
+    </div>
     </section>
 
     <!-- DESIGN SYSTEM -->
@@ -715,7 +942,7 @@
         <div class="panel"
           style="padding:16px; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));">
           <h4>Cards</h4>
-          <p class="bullets">Unified corner radius, inner padding, and type scale for product &amp; collection tiles.
+          <p class="bullets">Unified corner radius, inner padding, and type scale.
           </p>
         </div>
         <div class="panel"
@@ -726,7 +953,7 @@
         <div class="panel"
           style="padding:16px; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));">
           <h4>Patterns</h4>
-          <p class="bullets">Reusable sections for About/Blog: hero, content blocks, comments, CTAs.</p>
+          <p class="bullets">Reusable sections for About/Blog: hero, content blocks, and comments.</p>
         </div>
       </div>
     </section>
@@ -763,13 +990,13 @@
       <figure class="media-block">
 
 
-        <figcaption>Cart drawer &amp; sign-up flow; clearer steps and consistent spacing.</figcaption>
+        <figcaption>Cart drawer; clearer steps and consistent spacing.</figcaption>
 
       </figure>
 
       <figure class="media-block">
 
-        <figcaption>Collections, Brands, and Category — unified tiles + visible filters.</figcaption>
+        <figcaption>Collections, Brands, and Category: unified tiles + visible filters.</figcaption>
       </figure>
 
       <figure class="media-block">
@@ -777,7 +1004,7 @@
       </figure>
 
       <figure class="media-block">
-        <figcaption>Blog list + single post — social share, author card, comments.</figcaption>
+        <figcaption>Blogs, social share, author card, comments.</figcaption>
       </figure>
     </section>
 
@@ -787,9 +1014,10 @@
         <div>
           <h2>Results</h2>
           <ul class="bullets">
-            <li>Faster scanning via consistent card grid & spacing</li>
-            <li>Clear filter bar & sort chips reduced choice friction</li>
-            <li>Streamlined cart drawer + sign-up clarified next steps</li>
+            The Cooledtured web design project successfully met the client’s objectives, delivering a website that not
+            only aligns with their brand values but also enhances user engagement and content management. The project
+            showcases my ability to blend aesthetic design with functional requirements, creating a digital platform
+            that stands out.
           </ul>
         </div>
 
@@ -821,7 +1049,7 @@
           <h2>Next Steps</h2>
           <ul class="bullets">
             <!-- EDIT --> If I were to continue improving this project, I would focus on blending stronger visual
-            storytelling across all sections of the website. I plan to refine the color palette and typography to
+            storytelling across all sections of the website. I would plan to refine the color palette and typography to
             better align with the brand’s identity, ensuring a cohesive and modern look. Additionally, I would enhance
             the mobile experience by optimizing responsiveness and designing UI patterns that make navigation smoother
             and more intuitive for users on smaller screens.
